@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 /*The function to open the file and return the result of successful file opening */
 int hal_open_file();
 

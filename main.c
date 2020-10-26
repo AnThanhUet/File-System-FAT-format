@@ -1,12 +1,12 @@
 #include "HAL.h"
 #include "FAT.h"
 
-#define ADD_FIRS_BYTE_BIOS    0x00                                           /* The address of the first byte in BIOS Parameter Block */
-#define NUMBER_BYTE_BIOS       512                                           /* The number byte of BIOS Parameter Block */
-#define VALUE_SPECIFIC_FILE     -1                                           /*The value specifies the condition as a file */
-#define END_CHAIN_INDICATOR    0xFFF                                        /* The value End of chain indicator in FAT*/
+#define ADD_FIRS_BYTE_BIOS    0x00                   /* The address of the first byte in BIOS Parameter Block */
+#define NUMBER_BYTE_BIOS       512                   /* The number byte of BIOS Parameter Block */
+#define VALUE_SPECIFIC_FILE     -1                   /*The value specifies the condition as a file */
+#define END_CHAIN_INDICATOR    0xFFF                 /* The value End of chain indicator in FAT*/
 
-static unsigned char *s_DataBuff;                                            /* The Buffer array for storing the address mapping values of a Sector */
+static unsigned char *s_DataBuff;                    /* The Buffer array for storing the address mapping values of a Sector */
 /*The variable stores the total value of the file in a directory, if the directory is a file then the variable has the value of VALUE_SPECIFIC_FILE*/
 static int s_SumFile;
 /* The variables store initial parameters */
@@ -14,13 +14,12 @@ static struct Paremeter s_FAT12;
 /* The function enters the file name to be read */
 static void File_Init(char *fileName)
 {
-	printf("\t\tWelcome to the FAT file system\n");
+	printf("\t\t\tFAT file system\n");
 	printf("********************************************\n");
 	printf("\nEnter name file: ");
 	fflush(stdin);
 	scanf("%s",fileName); 
 }
-
 /* finds the Cluster the address mapping in the FAT region */
 static unsigned int Find_Clustermap(unsigned int ValueCluster)
 {
@@ -30,7 +29,7 @@ static unsigned int Find_Clustermap(unsigned int ValueCluster)
 	/* The address variable of the Cluster mapping value in the FAT */
 	unsigned int addClusterMap = (ValueCluster + (ValueCluster >> 1)) % s_FAT12.byteSector;
 	/* The statement checks whether the position condition of the Sector exceeds the FAT area or not */
-	if(addSector < s_FAT12.sectorFirstRootDirec)                                    /* If not, then execute the script to read value */
+	if(addSector < s_FAT12.sectorFirstRootDirec)                           /* If not, then execute the script to read value */
 	{
 		/* The statement checks if the position is at the END of a sector */
 		if(ValueCluster == s_FAT12.byteSector) /* If not, read 2 Sector */
@@ -144,7 +143,7 @@ int main()
 		/* The loop for executing the file read command is selected by the importer */
 		do
 		{
-			printf("\n>> Please enter 'Key' to go to the next file or '0' to exit the program: ");
+			printf("\n>> Enter 'Key' choose the apropariate file === choose '0' to exit the program:");
 			scanf("%d",&key);
 			if(0 < key && s_SumFile >= key || 1 == key ) Next_File(key,&ParentAdd); /*The statement check if the user entered key is executable */
 		}
